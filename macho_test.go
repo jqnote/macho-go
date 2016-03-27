@@ -2,6 +2,7 @@ package macho
 
 import (
 	"log"
+	"os"
 	"testing"
 )
 
@@ -21,6 +22,17 @@ func testMacho(name string) error {
 	uuid, _ = macho.GetUUIDByName("armv7")
 	log.Printf("uuid of armv7\n%v\n", uuid)
 	return nil
+}
+
+func TestMachoReader(t *testing.T) {
+	f, _ := os.Open("test/001")
+	macho, err := NewMacheFromReader(f)
+	if err != nil {
+		log.Println(err.Error())
+	}
+	uuids := macho.GetUUIDS()
+	log.Printf("UUIDS\n%v\n", uuids)
+
 }
 func TestMachoDecode(t *testing.T) {
 

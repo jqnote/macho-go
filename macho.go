@@ -5,6 +5,7 @@ import (
 	"encoding/binary"
 	"encoding/hex"
 	"fmt"
+	"io"
 	"os"
 	"strings"
 )
@@ -25,6 +26,35 @@ func NewMacho(name string) (*MachoFile, error) {
 		return nil, err
 	}
 	return machoFile, nil
+}
+
+func NewMacheFromReader(r io.ReaderAt) (*MachoFile, error) {
+	machoFile := &MachoFile{
+		name:  "",
+		uuids: MachoUUIDS{},
+	}
+	err := machoFile.loadFromReader(r)
+	if err != nil {
+		return nil, err
+	}
+	return machoFile, nil
+}
+
+func (m *MachoFile) loadFromReader(r io.ReaderAt) error {
+	machoFile, err := macho.NewFile(r)
+	if err != nil {
+		fatFile, _ := macho.NewFatFile(r)
+		defer fatFile.Close()
+		for _, arch := range fatFile.Arches {
+			archName, _ := m.getArchName(arch.Cpu, arch.SubCpu)
+			m.parse_data(arch.Loads, arch.ByteOrder, archName)
+		}
+	} else {
+		defer machoFile.Close()
+		archName, _ := m.getArchName(machoFile.Cpu, machoFile.SubCpu)
+		m.parse_data(machoFile.Loads, machoFile.ByteOrder, archName)
+	}
+	return nil
 }
 
 //加载符号表文件
