@@ -26,7 +26,7 @@ func testMacho(name string) error {
 
 func TestMachoReader(t *testing.T) {
 	f, _ := os.Open("test/001")
-	macho, err := NewMacheFromReader(f)
+	macho, err := NewMachoFromReader(f)
 	if err != nil {
 		log.Println(err.Error())
 	}
