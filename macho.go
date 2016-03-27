@@ -28,7 +28,7 @@ func NewMacho(name string) (*MachoFile, error) {
 	return machoFile, nil
 }
 
-func NewMacheFromReader(r io.ReaderAt) (*MachoFile, error) {
+func NewMachoFromReader(r io.ReaderAt) (*MachoFile, error) {
 	machoFile := &MachoFile{
 		name:  "",
 		uuids: MachoUUIDS{},
