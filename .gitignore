@@ -16,5 +16,4 @@ tags
 *.exe
 *.out
 *.app
-test
 .DS_Store
