@@ -125,6 +125,6 @@ func (m *MachoFile) lc_uuid(data []byte) string {
 	uuidRaw := data[8:]
 	uuidHex := make([]byte, hex.EncodedLen(len(uuidRaw)))
 	hex.Encode(uuidHex, uuidRaw)
-	uuid := fmt.Sprintf("%s-%s-%s-%s-%s\n", uuidHex[0:8], uuidHex[8:12], uuidHex[12:16], uuidHex[16:20], uuidHex[20:])
+	uuid := fmt.Sprintf("%s-%s-%s-%s-%s", uuidHex[0:8], uuidHex[8:12], uuidHex[12:16], uuidHex[16:20], uuidHex[20:])
 	return strings.ToUpper(uuid)
 }
