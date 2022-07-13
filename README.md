@@ -11,7 +11,7 @@ It's **under development** now.
 这是一个 macho 文件的小工具，补充官方库不支持获取符号表 uuid 信息的功能。依然处于开发阶段，属于玩具，不建议使用到任何环境。
 
 ## Get
-    go get github.com/wefound/macho-go
+    go get github.com/jqnote/macho-go
 
 ## Do Sth.
 
